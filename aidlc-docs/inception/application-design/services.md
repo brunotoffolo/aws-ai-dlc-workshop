@@ -2,7 +2,7 @@
 
 ## Service Layer Architecture
 
-The service layer orchestrates interactions between API handlers, agents, and data stores. All inter-agent communication is synchronous request-response via the Orchestrator Agent.
+The service layer orchestrates interactions between API handlers, agents, and data stores. API services invoke agents via AgentCore. The curriculum generation pipeline is orchestrated by AWS Step Functions (deterministic workflow, no LLM reasoning needed).
 
 ---
 
@@ -13,21 +13,25 @@ The service layer orchestrates interactions between API handlers, agents, and da
 **Flow**:
 ```
 User Request → Curriculum Service (Lambda)
-  → Orchestrator Agent
-    → Research Agent (sync) → research findings
-    → Content Generation Agent (sync, per lesson) → lesson content + diagrams
-    → Assessment Agent (sync, per lesson) → quizzes + rubrics
-  → Store content in S3 (pending review)
-  → Store metadata in DynamoDB (status: pending_review)
-  → Notify content review queue
+  → Start Step Functions Execution
+    → Step 1: Research Agent (AgentCore task) → research findings
+    → Step 2: Generate lesson outline from research
+    → Step 3: Map over lessons (parallel where possible):
+        → Content Generation Agent (AgentCore task) → lesson content + diagrams
+        → Assessment Agent (AgentCore task) → quizzes + rubrics
+    → Step 4: Store content in S3 (pending review)
+    → Step 5: Store metadata in DynamoDB (status: pending_review)
+    → Step 6: Notify content review queue
 ```
 
-**Orchestration Pattern**: Sequential pipeline — each agent receives output from the previous stage.
+**Orchestration Pattern**: AWS Step Functions state machine — deterministic sequential/parallel pipeline with built-in retries, timeouts, and error handling.
 
 **Error Handling**:
-- If Research Agent fails: return error to user with retry option
-- If Content Agent fails on a lesson: skip lesson, mark as failed, continue pipeline, notify admin
-- If Assessment Agent fails: generate curriculum without quizzes, flag for manual quiz creation
+- Step Functions native retry with exponential backoff per step
+- If Research Agent fails: state machine enters failure state, Curriculum Service notified, user sees retry option
+- If Content Agent fails on a lesson: Catch block skips lesson, marks as failed, continues pipeline, notifies admin
+- If Assessment Agent fails: Catch block generates curriculum without quizzes, flags for manual quiz creation
+- Dead letter queue for persistent failures
 
 ---
 

@@ -81,15 +81,17 @@ The platform is organised into 5 layers: Frontend, API, Agent, Data, and Infrast
 
 ## Layer 3: Agent Components (Strands SDK + Bedrock AgentCore)
 
-### AG-01: Orchestrator Agent
-- **Purpose**: Coordinate the curriculum generation pipeline
+### IF-01: Curriculum Pipeline (AWS Step Functions)
+- **Purpose**: Orchestrate the deterministic curriculum generation pipeline
 - **Responsibilities**:
-  - Receive curriculum generation request from Curriculum Service
-  - Sequence calls to Research → Content → Assessment agents
-  - Aggregate results into structured curriculum
-  - Handle pipeline errors and retries
+  - Execute sequential workflow: Research → Content Generation → Assessment
+  - Handle per-lesson parallel content/quiz generation
+  - Built-in error handling, retries, and timeouts per step
+  - Visual monitoring via Step Functions console
+  - Callback to Curriculum Service on completion/failure
+- **Note**: Replaces Orchestrator Agent — deterministic pipeline doesn't need LLM reasoning
 
-### AG-02: Research Agent
+### AG-01: Research Agent
 - **Purpose**: Deep research on requested topics
 - **Responsibilities**:
   - Web search and summarisation of educational content

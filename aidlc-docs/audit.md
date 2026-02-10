@@ -114,3 +114,45 @@ I want to use a multi-agent architecture, utilises AgentCore memory capabilities
 **Context**: Application Design complete. Awaiting user approval.
 
 ---
+## Application Design - Approval
+**Timestamp**: 2026-02-10T17:17:41Z
+**User Input**: "approve  & continue"
+**AI Response**: Application design approved. Proceeding to Units Generation phase.
+**Context**: Application Design complete. Moving to Units Generation.
+
+---
+## Units Generation - Plan and Questions Created
+**Timestamp**: 2026-02-10T17:17:41Z
+**User Input**: [Awaiting user responses to unit planning questions]
+**AI Response**: Created unit-of-work-plan.md with 4 questions covering project structure, agent packaging, frontend/backend separation, and IaC tooling. Execution plan has 4 steps.
+**Context**: Units Generation Part 1 - Planning. Waiting for answers.
+
+---
+## Units Generation - Answers Received
+**Timestamp**: 2026-02-10T17:21:53Z
+**User Input**: "done"
+**AI Response**: Read all 4 answers. Q1=A (monorepo), Q2=D (AgentCore runtime, each agent as separate container), Q3=A (frontend independent S3/CloudFront), Q4=B (CDK TypeScript). No contradictions. Key insight: hybrid deployment — Lambda for API services, AgentCore containers for agents. Proceeding to generate unit artifacts.
+**Context**: Units Generation Part 1 complete. Generating unit artifacts.
+
+---
+## Units Generation - Artifacts Generated
+**Timestamp**: 2026-02-10T17:33:13Z
+**User Input**: "done" (answers to unit planning questions)
+**AI Response**: Generated 3 unit artifacts: unit-of-work.md (5 units: Infrastructure CDK/TS, Shared Library Python, API Services Python/Lambda, AI Agents Python/AgentCore containers, Frontend React/Vite), unit-of-work-dependency.md (dependency matrix, build order, integration points), unit-of-work-story-map.md (all 17 MVP stories mapped to units with cross-unit coordination identified). Monorepo structure defined. Development sequence: Infra → Shared → API|Agents|Frontend in parallel.
+**Context**: Units Generation complete. INCEPTION PHASE fully complete. Awaiting approval to proceed to CONSTRUCTION PHASE.
+
+---
+## Units Generation - Architectural Change Request
+**Timestamp**: 2026-02-10T17:39:13Z
+**User Input**: "having an agentcore-based agent for orchestrating a linear process seems like an overkill as this is a deterministic workflow. what alternatives do we have?" → followed by "option a with step functions" → followed by "replace the agentcore-based Orchestrator agent with a Step Functions"
+**AI Response**: Replacing Orchestrator Agent (AG-01) with AWS Step Functions state machine. Rationale: deterministic sequential pipeline doesn't need LLM reasoning. Step Functions provides native error handling, retries, timeouts, visual monitoring. Agent count: 5 → 4 (Research, Content, Assessment, Personalisation). Updating all design artifacts.
+**Context**: Architectural decision — Step Functions replaces Orchestrator Agent for curriculum generation pipeline orchestration.
+
+---
+## Units Generation - Step Functions Refactor Applied
+**Timestamp**: 2026-02-10T17:39:13Z
+**User Input**: "replace the agentcore-based Orchestrator agent with a Step Functions"
+**AI Response**: Applied changes across 8 files: components.md (AG-01 → IF-01 Step Functions), component-methods.md (removed Orchestrator methods, updated Curriculum Service), services.md (updated pipeline flow to Step Functions), component-dependency.md (updated matrix, data flow diagram, communication patterns), unit-of-work.md (added pipeline-stack.ts, removed orchestrator dir, 4 agents), unit-of-work-dependency.md (updated integration points and risks), unit-of-work-story-map.md (updated cross-unit stories), requirements.md (updated agent architecture table).
+**Context**: Architectural refactor complete. All design artifacts consistent with Step Functions replacing Orchestrator Agent.
+
+---

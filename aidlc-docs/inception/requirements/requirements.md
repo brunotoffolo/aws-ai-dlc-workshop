@@ -139,11 +139,11 @@
 
 ## Agent Architecture Overview
 
-| Agent | Responsibility |
+| Agent / Component | Responsibility |
 |---|---|
-| Orchestrator Agent | Coordinates workflow between agents, manages curriculum generation pipeline |
+| Curriculum Pipeline (Step Functions) | Orchestrates deterministic workflow: Research → Content → Assessment. Built-in retries, timeouts, monitoring |
 | Research Agent | Deep research — web search, RAG, multi-source synthesis, fact-checking |
-| Content Generation Agent | Generates lessons, explanations, diagrams, visual aids |
+| Content Generation Agent | Generates lessons, explanations, diagrams, visual aids, subtitles |
 | Assessment Agent | Generates quizzes, tests, grading rubrics; handles adaptive difficulty |
 | Personalisation Agent | Pre-assessment, learning path adaptation, learner context via AgentCore memory |
 | Credential Agent (Phase 2) | Badge issuance, certificate generation, LinkedIn posting |

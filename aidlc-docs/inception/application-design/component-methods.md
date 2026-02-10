@@ -18,7 +18,7 @@ Method signatures for each component. Detailed business rules will be defined in
 
 | Method | Input | Output | Purpose |
 |---|---|---|---|
-| `generate_curriculum(user_id, topic, test_type, program_level, discovery_method)` | user_id: str, topic: str, test_type: enum, program_level: enum, discovery_method: enum | `{curriculum_id, status}` | Trigger curriculum generation pipeline |
+| `generate_curriculum(user_id, topic, test_type, program_level, discovery_method)` | user_id: str, topic: str, test_type: enum, program_level: enum, discovery_method: enum | `{curriculum_id, execution_arn, status}` | Start Step Functions pipeline execution |
 | `get_curriculum(curriculum_id)` | curriculum_id: str | `{curriculum}` | Retrieve curriculum with modules/lessons |
 | `list_curricula(user_id, filters)` | user_id: str, filters: dict | `[{curriculum}]` | List user's curricula (active, completed, assigned) |
 | `assign_curriculum(admin_id, curriculum_id, learner_ids, deadline)` | admin_id: str, curriculum_id: str, learner_ids: list, deadline: datetime | `{assignment_id}` | Admin assigns curriculum to learners |
@@ -64,11 +64,13 @@ Method signatures for each component. Detailed business rules will be defined in
 
 ## Agent Methods
 
-## AG-01: Orchestrator Agent
+## IF-01: Curriculum Pipeline (Step Functions)
 
-| Method | Input | Output | Purpose |
-|---|---|---|---|
-| `generate_curriculum_pipeline(topic, test_type, program_level, user_profile)` | topic: str, test_type: enum, program_level: enum, user_profile: dict | `{curriculum_structure, content_items, assessments}` | Run full generation pipeline (Research → Content → Assessment) |
+Pipeline is defined as infrastructure (CDK), not code methods. The state machine:
+1. Invokes Research Agent (AgentCore task)
+2. For each lesson in outline: invokes Content Agent + Assessment Agent (AgentCore tasks)
+3. Stores results in S3/DynamoDB via shared library Lambda tasks
+4. Updates curriculum status to `pending_review`
 
 ## AG-02: Research Agent
 
