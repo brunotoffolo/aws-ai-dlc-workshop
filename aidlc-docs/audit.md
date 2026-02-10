@@ -226,3 +226,24 @@ I want to use a multi-agent architecture, utilises AgentCore memory capabilities
 **Context**: Unit 2 complete. Foundation units (1+2) done. Next: Units 3, 4, 5.
 
 ---
+## Unit 4: AI Agents — Starting (Unit 3 deferred)
+**Timestamp**: 2026-02-10T18:29:55Z
+**User Input**: "let's skip unit 3 and move straight to unit 4. is this breaking anything?" → "yes please"
+**AI Response**: Confirmed no dependency issues — Unit 4 depends on Units 1+2 (done), not Unit 3. Proceeding with Unit 4: AI Agents — full treatment (Functional Design → NFR → Infrastructure Design → Code Gen).
+**Context**: Unit 3 deferred. Starting Unit 4 with Functional Design.
+
+---
+## Unit 4: AI Agents — Functional Design Complete
+**Timestamp**: 2026-02-10T18:40:45Z
+**User Input**: "ready" (answers: Q1=D no web search, Q2=B defer RAG, Q3=D ASCII diagrams, Q4=D surprise me, Q5=D minimal memory)
+**AI Response**: Generated 3 artifacts: business-logic-model.md (all 4 agent pipelines with input/output schemas, Bloom's+threshold adaptive algorithm), business-rules.md (content quality, quiz generation, adaptive difficulty, personalisation, research rules), domain-entities.md (ResearchFindings, LessonContent, QuizData, GradingResult, LearnerProfile, AdaptivePath).
+**Context**: Unit 4 Functional Design complete. Next: NFR Requirements for Unit 4.
+
+---
+## Unit 4: AI Agents — Functional Design Approved
+**Timestamp**: 2026-02-10T18:46:12Z
+**User Input**: "yes, persist everything to your files and wait my confirmation before moving forward"
+**AI Response**: Functional design approved. Updating all state files. Waiting for user confirmation before proceeding to NFR Requirements.
+**Context**: Unit 4 Functional Design approved. Pausing for user confirmation.
+
+---
