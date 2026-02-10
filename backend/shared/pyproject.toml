@@ -1,11 +1,10 @@
 [project]
-name = "tutorial-platform-shared"
+name = "shared"
 version = "0.1.0"
 requires-python = ">=3.12"
 dependencies = [
-    "boto3>=1.35.0",
+    "aws-lambda-powertools>=3.0.0",
     "pydantic>=2.0.0",
+    "ulid-py>=2.0.0",
+    "boto3-stubs[dynamodb,s3,stepfunctions,cognito-idp]>=1.35.0",
 ]
-
-[tool.pytest.ini_options]
-testpaths = ["tests"]

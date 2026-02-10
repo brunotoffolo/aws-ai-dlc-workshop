@@ -1,0 +1,44 @@
+[
+  {
+    "id": "business",
+    "name": "Business",
+    "subcategories": [
+      {"id": "leadership", "name": "Leadership", "topics": [
+        {"id": "exec-leadership", "name": "Executive Leadership", "description": "Strategic leadership and decision-making"},
+        {"id": "team-mgmt", "name": "Team Management", "description": "Managing and developing high-performing teams"}
+      ]},
+      {"id": "finance", "name": "Finance", "topics": [
+        {"id": "financial-analysis", "name": "Financial Analysis", "description": "Analysing financial statements and metrics"},
+        {"id": "budgeting", "name": "Budgeting & Forecasting", "description": "Planning and managing budgets"}
+      ]}
+    ]
+  },
+  {
+    "id": "technology",
+    "name": "Technology",
+    "subcategories": [
+      {"id": "cloud", "name": "Cloud Computing", "topics": [
+        {"id": "aws-fundamentals", "name": "AWS Fundamentals", "description": "Core AWS services and architecture"},
+        {"id": "kubernetes", "name": "Kubernetes", "description": "Container orchestration with Kubernetes"}
+      ]},
+      {"id": "programming", "name": "Programming", "topics": [
+        {"id": "python", "name": "Python", "description": "Python programming fundamentals and advanced topics"},
+        {"id": "typescript", "name": "TypeScript", "description": "TypeScript for modern web development"}
+      ]}
+    ]
+  },
+  {
+    "id": "data",
+    "name": "Data & Analytics",
+    "subcategories": [
+      {"id": "ml", "name": "Machine Learning", "topics": [
+        {"id": "ml-fundamentals", "name": "ML Fundamentals", "description": "Core machine learning concepts and algorithms"},
+        {"id": "genai", "name": "Generative AI", "description": "Large language models and generative AI applications"}
+      ]},
+      {"id": "data-eng", "name": "Data Engineering", "topics": [
+        {"id": "etl", "name": "ETL Pipelines", "description": "Building data extraction, transformation, and loading pipelines"},
+        {"id": "data-lakes", "name": "Data Lakes", "description": "Designing and managing data lake architectures"}
+      ]}
+    ]
+  }
+]
