@@ -106,37 +106,37 @@ E) Other (please describe after [Answer]: tag below)
 
 Once questions are answered, the following steps will be executed:
 
-- [ ] **Step 1**: Define user personas based on Q1-Q2 answers
-  - [ ] Create primary persona (Corporate Learner)
-  - [ ] Create additional personas based on answers
-  - [ ] Define persona goals, pain points, and characteristics
+- [x] **Step 1**: Define user personas based on Q1-Q2 answers
+  - [x] Create primary persona (Corporate Learner)
+  - [x] Create additional personas based on answers
+  - [x] Define persona goals, pain points, and characteristics
 
-- [ ] **Step 2**: Map user journeys based on Q3-Q4 answers
-  - [ ] Define primary learner journey (discover → learn → test → credential)
-  - [ ] Define secondary journeys (admin, content review) if applicable
-  - [ ] Identify key interaction points with AI agents
+- [x] **Step 2**: Map user journeys based on Q3-Q4 answers
+  - [x] Define primary learner journey (discover → learn → test → credential)
+  - [x] Define secondary journeys (admin, content review) if applicable
+  - [x] Identify key interaction points with AI agents
 
-- [ ] **Step 3**: Generate user stories using approach from Q5
-  - [ ] Create stories for MVP scope (content generation + quizzes + adaptive learning)
-  - [ ] Create stories for Phase 2 scope (accreditation + LinkedIn)
-  - [ ] Apply INVEST criteria to each story
-  - [ ] Add acceptance criteria per Q6 format preference
+- [x] **Step 3**: Generate user stories using approach from Q5
+  - [x] Create stories for MVP scope (content generation + quizzes + adaptive learning)
+  - [x] Create stories for Phase 2 scope (accreditation + LinkedIn)
+  - [x] Apply INVEST criteria to each story
+  - [x] Add acceptance criteria per Q6 format preference
 
-- [ ] **Step 4**: Generate acceptance criteria based on Q6 answer
-  - [ ] Write acceptance criteria for each story
-  - [ ] Include error scenarios and edge cases per detail level
-  - [ ] Ensure testability of each criterion
+- [x] **Step 4**: Generate acceptance criteria based on Q6 answer
+  - [x] Write acceptance criteria for each story
+  - [x] Include error scenarios and edge cases per detail level
+  - [x] Ensure testability of each criterion
 
-- [ ] **Step 5**: Map personas to stories
-  - [ ] Link each story to relevant persona(s)
-  - [ ] Verify all personas have associated stories
-  - [ ] Verify all MVP requirements are covered by stories
+- [x] **Step 5**: Map personas to stories
+  - [x] Link each story to relevant persona(s)
+  - [x] Verify all personas have associated stories
+  - [x] Verify all MVP requirements are covered by stories
 
-- [ ] **Step 6**: Organise and prioritise
-  - [ ] Group stories by MVP vs Phase 2
-  - [ ] Order stories within MVP by dependency and value
-  - [ ] Create story summary with counts and coverage
+- [x] **Step 6**: Organise and prioritise
+  - [x] Group stories by MVP vs Phase 2
+  - [x] Order stories within MVP by dependency and value
+  - [x] Create story summary with counts and coverage
 
-- [ ] **Step 7**: Save artifacts
-  - [ ] Save `aidlc-docs/inception/user-stories/personas.md`
-  - [ ] Save `aidlc-docs/inception/user-stories/stories.md`
+- [x] **Step 7**: Save artifacts
+  - [x] Save `aidlc-docs/inception/user-stories/personas.md`
+  - [x] Save `aidlc-docs/inception/user-stories/stories.md`
