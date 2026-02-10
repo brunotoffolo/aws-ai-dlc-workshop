@@ -1,2 +1,5 @@
 .vscode/
 aidlc-workflows/
+backend/shared/__pycache__
+infra/node_modules
+infra/cdk.out

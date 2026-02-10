@@ -45,10 +45,16 @@ export class ApiStack extends cdk.Stack {
     };
 
     const createFn = (name: string, timeout = 30, memorySize = 256, extraEnv: Record<string, string> = {}): lambda.Function => {
+      const codePath = `../backend/api/${name.toLowerCase()}`;
+      const fs = require('fs');
+      const code = fs.existsSync(codePath)
+        ? lambda.Code.fromAsset(codePath)
+        : lambda.Code.fromInline('def handler(event, context): return {"statusCode": 501, "body": "Not implemented"}');
+
       const fn = new lambda.Function(this, `${name}Function`, {
         runtime: lambda.Runtime.PYTHON_3_12,
         handler: 'main.handler',
-        code: lambda.Code.fromAsset(`../backend/api/${name.toLowerCase()}`),
+        code,
         timeout: cdk.Duration.seconds(timeout),
         memorySize,
         environment: { ...sharedEnv, ...extraEnv },
