@@ -26,6 +26,11 @@ def store_content(key: str, body: str, content_type: str = "text/markdown") -> N
     )
 
 
+def put_content(key: str, body: str, content_type: str = "text/markdown") -> None:
+    """Alias for store_content — used by API services."""
+    store_content(key, body, content_type)
+
+
 def get_content(key: str) -> Optional[str]:
     try:
         resp = _get_client().get_object(Bucket=config.CONTENT_BUCKET, Key=key)
@@ -43,9 +48,25 @@ def store_media(key: str, body: bytes, content_type: str) -> None:
     )
 
 
-def get_media_url(key: str, expires_in: int = 3600) -> str:
+def generate_presigned_url(key: str, expires_in: int = 3600) -> str:
     return _get_client().generate_presigned_url(
         "get_object",
         Params={"Bucket": config.CONTENT_BUCKET, "Key": key},
         ExpiresIn=expires_in,
     )
+
+
+def get_media_url(key: str, expires_in: int = 3600) -> str:
+    """Alias for generate_presigned_url."""
+    return generate_presigned_url(key, expires_in)
+
+
+class _S3Client:
+    """Object-style s3 access for API service compatibility."""
+    put_content = staticmethod(put_content)
+    get_content = staticmethod(get_content)
+    generate_presigned_url = staticmethod(generate_presigned_url)
+    store_media = staticmethod(store_media)
+
+
+s3_client = _S3Client()

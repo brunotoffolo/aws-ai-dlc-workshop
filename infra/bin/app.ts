@@ -28,6 +28,7 @@ const apiStack = new ApiStack(app, `${env}-ApiStack`, {
   table: dataStack.table,
   contentBucket: dataStack.contentBucket,
   userPool: authStack.userPool,
+  userPoolClient: authStack.userPoolClient,
   stateMachine: pipelineStack.stateMachine,
 });
 
