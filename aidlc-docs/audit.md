@@ -247,3 +247,10 @@ I want to use a multi-agent architecture, utilises AgentCore memory capabilities
 **Context**: Unit 4 Functional Design approved. Pausing for user confirmation.
 
 ---
+## Unit 4: AI Agents — NFR Requirements Complete
+**Timestamp**: 2026-02-10T18:52:37Z
+**User Input**: "gtg" (answers: Q1=2 minutes, Q2=Sonnet 4.5, Q3=B retry+fallback)
+**AI Response**: Generated nfr-requirements.md (performance targets with parallelisation strategy for 2-min target, reliability with model fallback, cost optimisation, security with prompt injection/guardrails, observability) and tech-stack-decisions.md. All plan steps complete.
+**Context**: Unit 4 NFR Requirements complete. Next: NFR Design.
+
+---
