@@ -1,0 +1,10 @@
+[project]
+name = "tutorial-platform-agents"
+version = "0.1.0"
+requires-python = ">=3.12"
+dependencies = [
+    "boto3>=1.35.0",
+    "pydantic>=2.0.0",
+    "strands-agents>=0.1.0",
+    "strands-agents-tools-bedrock>=0.1.0",
+]
