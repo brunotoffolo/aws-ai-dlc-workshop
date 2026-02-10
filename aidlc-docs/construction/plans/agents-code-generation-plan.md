@@ -9,27 +9,27 @@
 
 ## Code Generation Steps
 
-- [ ] **Step 1**: Initialize agents package with shared utilities
-  - [ ] `pyproject.toml`, `__init__.py`
-  - [ ] `tools/bedrock.py` — model invocation with fallback logic
-  - [ ] `tools/sanitise.py` — input sanitisation
+- [x] **Step 1**: Initialize agents package with shared utilities
+  - [x] `pyproject.toml`, `__init__.py`
+  - [x] `tools/bedrock.py` — model invocation with fallback logic
+  - [x] `tools/sanitise.py` — input sanitisation
 
-- [ ] **Step 2**: Create Research Agent
-  - [ ] `research/agent.py` — topic analysis + curriculum outline generation
-  - [ ] `research/prompts.py` — system/user prompt templates
+- [x] **Step 2**: Create Research Agent
+  - [x] `research/agent.py` — topic analysis + curriculum outline generation
+  - [x] `research/prompts.py` — system/user prompt templates
 
-- [ ] **Step 3**: Create Content Generation Agent
-  - [ ] `content_gen/agent.py` — lesson content + ASCII diagrams + subtitles
-  - [ ] `content_gen/prompts.py` — prompt templates
+- [x] **Step 3**: Create Content Generation Agent
+  - [x] `content_gen/agent.py` — lesson content + ASCII diagrams + subtitles
+  - [x] `content_gen/prompts.py` — prompt templates
 
-- [ ] **Step 4**: Create Assessment Agent
-  - [ ] `assessment/agent.py` — quiz generation + grading
-  - [ ] `assessment/prompts.py` — prompt templates
-  - [ ] `assessment/difficulty.py` — Bloom's taxonomy adaptive algorithm
+- [x] **Step 4**: Create Assessment Agent
+  - [x] `assessment/agent.py` — quiz generation + grading
+  - [x] `assessment/prompts.py` — prompt templates
+  - [x] `assessment/difficulty.py` — Bloom's taxonomy adaptive algorithm
 
-- [ ] **Step 5**: Create Personalisation Agent
-  - [ ] `personalisation/agent.py` — pre-assessment analysis + adaptive path
-  - [ ] `personalisation/prompts.py` — prompt templates
+- [x] **Step 5**: Create Personalisation Agent
+  - [x] `personalisation/agent.py` — pre-assessment analysis + adaptive path
+  - [x] `personalisation/prompts.py` — prompt templates
 
-- [ ] **Step 6**: Test all agents
-- [ ] **Step 7**: Generate code summary
+- [x] **Step 6**: Test all agents
+- [x] **Step 7**: Generate code summary

@@ -341,3 +341,10 @@ I want to use a multi-agent architecture, utilises AgentCore memory capabilities
 **Context**: Unit 3 Code Generation complete. Awaiting user approval.
 
 ---
+## Unit 4: AI Agents — Code Generation Complete
+**Timestamp**: 2026-02-10T18:57:56Z
+**User Input**: "please" → "go" → "k"
+**AI Response**: Completed NFR Requirements, NFR Design, and Code Generation for Unit 4. Generated 15 files across 4 agents + shared tools. All tests pass (imports, sanitisation, difficulty algorithm, model config, personalisation thresholds, prompt templates, question counts).
+**Context**: Unit 4 complete. 3 of 5 units done (1, 2, 4). Remaining: Unit 3 (API) and Unit 5 (Frontend).
+
+---
