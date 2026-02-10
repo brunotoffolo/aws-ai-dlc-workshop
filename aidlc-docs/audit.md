@@ -156,3 +156,52 @@ I want to use a multi-agent architecture, utilises AgentCore memory capabilities
 **Context**: Architectural refactor complete. All design artifacts consistent with Step Functions replacing Orchestrator Agent.
 
 ---
+## Units Generation - Approval
+**Timestamp**: 2026-02-10T17:50:57Z
+**User Input**: "approved"
+**AI Response**: Units generation approved (with Step Functions refactor). INCEPTION PHASE complete. Proceeding to CONSTRUCTION PHASE — starting per-unit loop with Unit 1: Infrastructure.
+**Context**: All inception stages complete. Transitioning to Construction Phase.
+
+---
+## Construction Phase - Unit Execution Strategy
+**Timestamp**: 2026-02-10T17:50:57Z
+**User Input**: "approved" (units generation)
+**AI Response**: Assessed per-unit stage applicability. Unit 1 (Infrastructure) and Unit 2 (Shared Library) are foundational — they don't have business logic or domain models. Recommending: skip Functional Design for Units 1 & 2, proceed directly to Infrastructure Design (Unit 1) and Code Generation. Units 3, 4, 5 get full treatment (Functional Design, NFR, Infrastructure Design, Code Gen).
+**Context**: Entering Construction Phase. Optimising stage execution per unit based on unit nature.
+
+---
+## Construction Phase - Per-Unit Strategy Approved
+**Timestamp**: 2026-02-10T17:54:56Z
+**User Input**: "y"
+**AI Response**: Per-unit stage strategy approved. Starting Unit 1: Infrastructure — Infrastructure Design stage.
+**Context**: Units 1&2 get abbreviated treatment (skip Functional/NFR). Units 3/4/5 get full treatment.
+
+---
+## Unit 1: Infrastructure — Infrastructure Design Complete
+**Timestamp**: 2026-02-10T17:56:52Z
+**User Input**: "done" (answers: Q1=best practices→multi-stack by layer, Q2=A dev only, Q3=A Cognito, Q4=A on-demand DynamoDB)
+**AI Response**: Generated infrastructure-design.md (6 CDK stacks: Data, Auth, Agent, Pipeline, Api, Frontend; DynamoDB single-table design with access patterns; Cognito auth; Step Functions state machine definition; API routes; IAM least-privilege) and deployment-architecture.md (stack dependency order, cross-stack outputs, deployment commands).
+**Context**: Unit 1 Infrastructure Design complete. Next: Code Generation for Unit 1.
+
+---
+## Unit 1: Infrastructure — Infrastructure Design Approved
+**Timestamp**: 2026-02-10T18:00:30Z
+**User Input**: "approve"
+**AI Response**: Infrastructure design approved. Proceeding to Code Generation for Unit 1: Infrastructure.
+**Context**: Unit 1 Infrastructure Design approved. Next: Code Generation (Unit 1).
+
+---
+## Unit 1: Infrastructure — Code Generation Plan Approved
+**Timestamp**: 2026-02-10T18:01:55Z
+**User Input**: "y"
+**AI Response**: Code generation plan approved. Generating CDK infrastructure code (9 steps).
+**Context**: Unit 1 Code Generation Part 2 — executing plan.
+
+---
+## Unit 1: Infrastructure — Code Generation Complete
+**Timestamp**: 2026-02-10T18:01:55Z
+**User Input**: "y" (plan approval)
+**AI Response**: Generated 10 files: package.json, tsconfig.json, cdk.json, bin/app.ts, lib/data-stack.ts, lib/auth-stack.ts, lib/agent-stack.ts, lib/pipeline-stack.ts, lib/api-stack.ts, lib/frontend-stack.ts. Plus code-summary.md. All 9 plan steps marked complete.
+**Context**: Unit 1 Code Generation complete. Next: Unit 2 (Shared Library).
+
+---
