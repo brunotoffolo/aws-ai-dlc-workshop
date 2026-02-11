@@ -26,7 +26,8 @@ def review_content(reviewer_id: str, curriculum_id: str, lesson_id: str, action:
     item = db_client.get_item(pk, sk)
     if not item:
         return error_response(NOT_FOUND, "Content not found", 404)
-    if item.get("review_status", item.get("status")) != "pending_review":
+    reviewable = item.get("review_status", item.get("status", "")) in ("pending_review", "rejected")
+    if not reviewable:
         return error_response(CONFLICT, "Content not in reviewable state", 409)
 
     now = datetime.utcnow().isoformat()
