@@ -18,6 +18,7 @@ export function useLogin() {
     mutationFn: (data: LoginPayload) => api.post("/auth/login", data).then((r) => r.data),
     onSuccess: (data) => {
       localStorage.setItem("access_token", data.data.access_token);
+      if (data.data.id_token) localStorage.setItem("id_token", data.data.id_token);
       if (data.data.refresh_token) localStorage.setItem("refresh_token", data.data.refresh_token);
     },
   });
@@ -33,7 +34,7 @@ export function useProfile() {
   return useQuery({
     queryKey: ["profile"],
     queryFn: () => api.get("/auth/profile").then((r) => r.data),
-    enabled: !!localStorage.getItem("access_token"),
+    enabled: !!(localStorage.getItem("id_token") || localStorage.getItem("access_token")),
   });
 }
 

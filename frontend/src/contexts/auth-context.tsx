@@ -15,7 +15,7 @@ const AuthContext = createContext<AuthContextValue>({
 });
 
 export function AuthProvider({ children }: { children: ReactNode }) {
-  const [token, setToken] = useState(() => localStorage.getItem("access_token"));
+  const [token, setToken] = useState(() => localStorage.getItem("id_token") || localStorage.getItem("access_token"));
   const { data, isLoading } = useProfile();
 
   const user = token && data?.data ? (data.data as User) : null;
@@ -28,6 +28,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
   const logout = () => {
     localStorage.removeItem("access_token");
+    localStorage.removeItem("id_token");
     localStorage.removeItem("refresh_token");
     setToken(null);
     window.location.href = "/login";

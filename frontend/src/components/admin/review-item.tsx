@@ -11,7 +11,7 @@ interface Props {
 export function ReviewItem({ item, onReview }: Props) {
   const [feedback, setFeedback] = useState("");
   const curriculumId = item.curriculum_id as string;
-  const lessonId = item.lesson_id as string;
+  const lessonId = (item.lesson_id ?? item.lesson_order) as string;
 
   return (
     <Card data-testid={`review-item-${lessonId}`}>

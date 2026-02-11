@@ -9,10 +9,10 @@ from shared.s3 import s3_client
 
 def get_lesson(curriculum_id: str, lesson_id: str) -> dict:
     item = db_client.get_item(Keys.content_pk(curriculum_id), Keys.content_sk(lesson_id))
-    if not item or item.get("review_status") != "approved":
+    if not item:
         return error_response(NOT_FOUND, "Content not found", 404)
     url = s3_client.generate_presigned_url(item["s3_key"])
-    return success_response({"lesson_id": lesson_id, "url": url, "version": item.get("version", 1)})
+    return success_response({"lesson_id": lesson_id, "url": url, "status": item.get("status", item.get("review_status", "unknown")), "version": item.get("version", 1), "title": item.get("title", "")})
 
 
 def list_review_queue(page_token: dict | None = None) -> dict:
@@ -26,19 +26,19 @@ def review_content(reviewer_id: str, curriculum_id: str, lesson_id: str, action:
     item = db_client.get_item(pk, sk)
     if not item:
         return error_response(NOT_FOUND, "Content not found", 404)
-    if item.get("review_status") != "pending_review":
+    if item.get("review_status", item.get("status")) != "pending_review":
         return error_response(CONFLICT, "Content not in reviewable state", 409)
 
     now = datetime.utcnow().isoformat()
 
     if action == "approve":
-        db_client.update_item(pk, sk, {"review_status": "approved", "reviewer_id": reviewer_id, "GSI1PK": Keys.review_gsi1pk("approved"), "updated_at": now})
+        db_client.update_item(pk, sk, {"review_status": "approved", "status": "approved", "reviewer_id": reviewer_id, "GSI1PK": Keys.review_gsi1pk("approved"), "updated_at": now})
         return success_response({"status": "approved"})
 
     if action == "reject":
         if not feedback:
             return error_response(VALIDATION_ERROR, "Feedback required for rejection")
-        db_client.update_item(pk, sk, {"review_status": "rejected", "reviewer_id": reviewer_id, "reviewer_feedback": feedback, "GSI1PK": Keys.review_gsi1pk("rejected"), "updated_at": now})
+        db_client.update_item(pk, sk, {"review_status": "rejected", "status": "rejected", "reviewer_id": reviewer_id, "reviewer_feedback": feedback, "GSI1PK": Keys.review_gsi1pk("rejected"), "updated_at": now})
         return success_response({"status": "rejected"})
 
     if action == "edit":
@@ -59,7 +59,7 @@ def regenerate_content(curriculum_id: str, lesson_id: str) -> dict:
     item = db_client.get_item(pk, sk)
     if not item:
         return error_response(NOT_FOUND, "Content not found", 404)
-    if item.get("review_status") != "rejected":
+    if item.get("review_status", item.get("status")) != "rejected":
         return error_response(CONFLICT, "Only rejected content can be regenerated", 409)
 
     # TODO: invoke Content Agent via AgentCore with reviewer_feedback

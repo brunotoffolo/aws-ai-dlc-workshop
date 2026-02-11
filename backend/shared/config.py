@@ -2,7 +2,7 @@ import os
 
 
 TABLE_NAME = os.environ.get("TABLE_NAME", "TutorialTable")
-CONTENT_BUCKET = os.environ.get("CONTENT_BUCKET", "content-bucket")
+CONTENT_BUCKET = os.environ.get("CONTENT_BUCKET", os.environ.get("CONTENT_BUCKET_NAME", "content-bucket"))
 USER_POOL_ID = os.environ.get("USER_POOL_ID", "")
 USER_POOL_CLIENT_ID = os.environ.get("USER_POOL_CLIENT_ID", "")
 STATE_MACHINE_ARN = os.environ.get("STATE_MACHINE_ARN", os.environ.get("PIPELINE_STATE_MACHINE_ARN", ""))

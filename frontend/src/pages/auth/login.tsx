@@ -25,7 +25,7 @@ export default function LoginPage() {
   const onSubmit = (data: FormData) => {
     setError("");
     login.mutate(data, {
-      onSuccess: () => navigate("/"),
+      onSuccess: () => window.location.href = "/",
       onError: (e: unknown) => setError((e as { response?: { data?: { message?: string } } }).response?.data?.message ?? "Invalid email or password"),
     });
   };

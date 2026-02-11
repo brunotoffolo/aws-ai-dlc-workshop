@@ -89,8 +89,15 @@ class Keys:
     status_gsi1pk = staticmethod(_keys.status_gsi1pk)
 
     @staticmethod
-    def content_sk(lesson_order: int) -> str:
-        return f"CONTENT#{lesson_order:04d}"
+    def content_pk(curriculum_id: str) -> str:
+        return f"CURR#{curriculum_id}"
+
+    @staticmethod
+    def content_sk(lesson_order) -> str:
+        try:
+            return f"LESSON#{int(lesson_order):04d}"
+        except (ValueError, TypeError):
+            return f"LESSON#{lesson_order}"
 
     @staticmethod
     def review_gsi1pk(status: str) -> str:
