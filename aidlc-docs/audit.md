@@ -355,3 +355,59 @@ I want to use a multi-agent architecture, utilises AgentCore memory capabilities
 **Context**: Unit 3 reconciled with shared library. All 4 units now working.
 
 ---
+
+## Unit 5: Frontend — Development Request
+**Timestamp**: 2026-02-11T12:19:38Z
+**User Input**: "ok, faça o desenvolvimento da unit 5"
+**AI Response**: Starting Unit 5 (Frontend) development. Loading construction rules and checking for existing plans.
+**Context**: User requested development of Unit 5: Frontend (React + Vite + Tailwind + ShadCN).
+
+---
+
+## Unit 5: Frontend — Code Generation Plan Created
+**Timestamp**: 2026-02-11T12:21:32Z
+**User Input**: [Awaiting plan approval]
+**AI Response**: Created frontend-code-generation-plan.md with 16 steps covering: (1) Vite+React+TS setup, (2) Tailwind+ShadCN, (3) API client layer with TanStack Query, (4) Auth context, (5) Auth pages (US-001/002/003), (6) Learner dashboard (US-014), (7) Curriculum discovery (US-004/005), (8) Lesson viewer (US-008), (9) Quiz interface (US-009/011/013), (10) Admin dashboard (US-016/017), (11) Layout components, (12) Routing, (13) App entry, (14) Test IDs, (15) Env config, (16) Code summary. Covers 2 primary + 12 secondary stories.
+**Context**: Unit 5 Code Generation Part 1 — Planning. Awaiting approval.
+
+---
+
+## Unit 5: Frontend — Code Generation Plan Approved
+**Timestamp**: 2026-02-11T12:22:27Z
+**User Input**: "yes"
+**AI Response**: Code generation plan approved. Executing 16 steps.
+**Context**: Unit 5 Code Generation Part 2 — executing plan.
+
+---
+
+## Unit 5: Frontend — Code Generation Complete
+**Timestamp**: 2026-02-11T12:41:51Z
+**User Input**: "yes" (plan approval)
+**AI Response**: Generated 45 files across 16 steps: Step 1 (Vite+React+TS project — package.json, tsconfig, vite.config), Step 2 (Tailwind+ShadCN — 9 UI components: Button, Input, Card, Label, Select, Textarea, Dialog, Tabs, Toast), Step 3 (API client — Axios instance + TanStack Query client + 6 API hook files covering all 24 API endpoints), Step 4 (Auth context + ProtectedRoute + RoleGuard), Step 5 (4 auth pages — register, login, verify-email, profile), Step 6 (Learner dashboard + CurriculumCard + ProgressChart), Step 7 (Curriculum create page + FreeTextForm + GuidedWizard + GenerationStatus), Step 8 (Lesson viewer + MarkdownRenderer + LessonNavigation), Step 9 (Quiz page + QuestionRenderer + QuizResults + PreAssessment), Step 10 (4 admin pages — dashboard, learners, courses, review-queue + 3 admin components), Step 11 (AppLayout + Header + Sidebar), Step 12 (Router with lazy loading), Step 13 (App.tsx + main.tsx + index.html), Step 14 (data-testid on all interactive elements), Step 15 (.env.example + env.ts), Step 16 (code-summary.md). All 16 plan steps marked complete. Covers 14 of 17 MVP stories.
+**Context**: Unit 5 Code Generation complete. Awaiting user approval.
+
+---
+
+## Unit 5: Frontend — Remaining 3 Stories Coverage Request
+**Timestamp**: 2026-02-11T12:43:39Z
+**User Input**: "finalize a cobertura das demais 3 storys que faltam"
+**AI Response**: Identified US-007, US-010, US-012 as the 3 missing stories. All are Agent-primary with no Frontend secondary unit. Adding indirect frontend coverage: (1) Curriculum detail page showing lesson generation status (US-007), (2) Adaptive path display in curriculum view (US-010), (3) Difficulty level indicator in quiz UI (US-012).
+**Context**: Unit 5 Code Generation — extending coverage for remaining stories.
+
+---
+
+## Unit 5: Frontend — Remaining 3 Stories Coverage Complete
+**Timestamp**: 2026-02-11T12:45:30Z
+**User Input**: "finalize a cobertura das demais 3 storys que faltam"
+**AI Response**: Added coverage for US-007, US-010, US-012. Created curriculum-detail.tsx (new page showing lesson generation status per US-007, adaptive path display per US-010, per-lesson difficulty per US-012). Updated quiz.tsx with difficulty level indicator (US-012). Updated router.tsx with new route. Updated code-summary.md. All 17/17 MVP stories now covered.
+**Context**: Unit 5 Code Generation — all stories now covered. Awaiting approval.
+
+---
+
+## Unit 5: Frontend — Code Generation Approved
+**Timestamp**: 2026-02-11T12:47:20Z
+**User Input**: "approved"
+**AI Response**: Unit 5 Frontend code generation approved. All 17/17 MVP stories covered. Updating state and proceeding to Build and Test stage.
+**Context**: Unit 5 complete. All 5 units done. Moving to Build and Test.
+
+---
