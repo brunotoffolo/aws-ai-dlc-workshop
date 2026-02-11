@@ -11,8 +11,15 @@ def get_lesson(curriculum_id: str, lesson_id: str) -> dict:
     item = db_client.get_item(Keys.content_pk(curriculum_id), Keys.content_sk(lesson_id))
     if not item:
         return error_response(NOT_FOUND, "Content not found", 404)
-    url = s3_client.generate_presigned_url(item["s3_key"])
-    return success_response({"lesson_id": lesson_id, "url": url, "status": item.get("status", item.get("review_status", "unknown")), "version": item.get("version", 1), "title": item.get("title", "")})
+    # Fetch actual markdown content from S3
+    content = s3_client.get_content(item["s3_key"]) if item.get("s3_key") else ""
+    return success_response({
+        "lesson_id": lesson_id,
+        "title": item.get("title", ""),
+        "content": content or "",
+        "status": item.get("status", item.get("review_status", "unknown")),
+        "version": item.get("version", 1),
+    })
 
 
 def list_review_queue(page_token: dict | None = None) -> dict:

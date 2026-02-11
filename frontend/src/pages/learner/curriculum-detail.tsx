@@ -48,7 +48,7 @@ export default function CurriculumDetailPage() {
         </h2>
         <div className="space-y-2">
           {displayLessons.map((lesson, idx) => {
-            const id = lesson.lesson_id as string;
+            const id = (lesson.lesson_id ?? lesson.lesson_order) as string;
             const title = lesson.title as string;
             const status = (lesson.status ?? "approved") as string;
             const ready = status === "approved";
