@@ -73,3 +73,25 @@ def get_versions(curriculum_id: str, lesson_id: str) -> dict:
     if not item:
         return error_response(NOT_FOUND, "Content not found", 404)
     return success_response({"current": item.get("s3_key"), "previous": item.get("previous_s3_key"), "version": item.get("version", 1)})
+
+
+def approve_all_for_curriculum(reviewer_id: str, curriculum_id: str) -> dict:
+    now = datetime.utcnow().isoformat()
+    lessons = db_client.query(f"CURR#{curriculum_id}", "LESSON#")
+    quizzes = db_client.query(f"CURR#{curriculum_id}", "QUIZ#")
+    count = 0
+    for item in lessons["items"] + quizzes["items"]:
+        status = item.get("review_status", item.get("status", ""))
+        if status in ("pending_review", "rejected"):
+            db_client.update_item(item["PK"], item["SK"], {
+                "review_status": "approved", "status": "approved",
+                "reviewer_id": reviewer_id, "GSI1PK": Keys.review_gsi1pk("approved"),
+                "updated_at": now,
+            })
+            count += 1
+    # Also update the curriculum record status
+    curr = db_client.query(Keys.curriculum_gsi1pk(curriculum_id), "META", index_name="GSI1")
+    if curr["items"]:
+        db_client.update_item(curr["items"][0]["PK"], curr["items"][0]["SK"], {"status": "approved", "updated_at": now})
+
+    return success_response({"message": f"Approved {count} items for curriculum {curriculum_id}", "status": "approved"})

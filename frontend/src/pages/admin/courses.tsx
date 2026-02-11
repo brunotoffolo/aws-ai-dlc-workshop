@@ -1,6 +1,7 @@
 import { useCourseCatalog } from "@/hooks/api/use-admin";
 import { AssignmentDialog } from "@/components/admin/assignment-dialog";
 import { useUnassignCurriculum, useDeleteCurriculum } from "@/hooks/api/use-curriculum";
+import { useApproveAllContent } from "@/hooks/api/use-content";
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -15,6 +16,7 @@ export default function CoursesPage() {
   const [unassignEmail, setUnassignEmail] = useState("");
   const unassign = useUnassignCurriculum();
   const deleteCurr = useDeleteCurriculum();
+  const approveAll = useApproveAllContent();
 
   const handleUnassign = () => {
     if (!unassignId || !unassignEmail) return;
@@ -33,7 +35,10 @@ export default function CoursesPage() {
               <CardHeader><CardTitle className="text-base">{(c.title ?? c.topic) as string}</CardTitle></CardHeader>
               <CardContent className="space-y-2">
                 <p className="text-sm text-muted-foreground">{c.lesson_count as number ?? 0} lessons • {c.status as string}</p>
-                <div className="flex gap-2">
+                <div className="flex gap-2 flex-wrap">
+                  {(c.status as string) !== "approved" && (
+                    <Button size="sm" variant="default" onClick={() => approveAll.mutate(c.curriculum_id as string, { onSuccess: () => queryClient.invalidateQueries({ queryKey: ["admin"] }) })} data-testid={`approve-all-button-${c.curriculum_id}`}>Approve All</Button>
+                  )}
                   <Button size="sm" onClick={() => setAssignId(c.curriculum_id as string)} data-testid={`assign-button-${c.curriculum_id}`}>Assign</Button>
                   <Button size="sm" variant="outline" onClick={() => setUnassignId(c.curriculum_id as string)} data-testid={`unassign-button-${c.curriculum_id}`}>Unassign</Button>
                   <Button size="sm" variant="destructive" onClick={() => { if (confirm("Delete this course and all its content?")) deleteCurr.mutate(c.curriculum_id as string); }} data-testid={`delete-button-${c.curriculum_id}`}>Delete</Button>

@@ -52,7 +52,16 @@ def get_curriculum(curriculum_id: str) -> dict:
     if not result["items"]:
         return error_response(NOT_FOUND, "Curriculum not found", 404)
     item = result["items"][0]
-    return success_response({k: v for k, v in item.items() if not k.startswith(("PK", "SK", "GSI"))})
+    data = {k: v for k, v in item.items() if not k.startswith(("PK", "SK", "GSI"))}
+
+    # Fetch lessons for this curriculum
+    lessons = db_client.query(f"CURR#{curriculum_id}", "LESSON#")
+    data["lessons"] = sorted(
+        [{"lesson_order": l.get("lesson_order"), "title": l.get("title", ""), "status": l.get("status", l.get("review_status", "")), "s3_key": l.get("s3_key", "")} for l in lessons["items"]],
+        key=lambda x: str(x.get("lesson_order", 0)),
+    )
+    data["lesson_count"] = len(data["lessons"])
+    return success_response(data)
 
 
 def list_curricula(user_id: str) -> dict:

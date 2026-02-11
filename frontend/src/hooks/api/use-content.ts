@@ -23,3 +23,9 @@ export function useReviewContent() {
     }) => api.post(`/content/${curriculumId}/${lessonId}/review`, { action, feedback, edited_content }).then((r) => r.data),
   });
 }
+
+export function useApproveAllContent() {
+  return useMutation({
+    mutationFn: (curriculumId: string) => api.post(`/content/${curriculumId}/approve-all`).then((r) => r.data),
+  });
+}

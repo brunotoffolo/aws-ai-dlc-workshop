@@ -48,3 +48,9 @@ def versions(curriculum_id: str, lesson_id: str):
 @logger.inject_lambda_context(correlation_id_path="requestContext.requestId")
 def lambda_handler(event, context):
     return app.resolve(event, context)
+
+
+@app.post("/content/<curriculum_id>/approve-all")
+def approve_all(curriculum_id: str):
+    user = get_current_user(app.current_event.raw_event)
+    return _proxy(service.approve_all_for_curriculum(user["user_id"], curriculum_id))

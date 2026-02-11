@@ -124,6 +124,7 @@ export class ApiStack extends cdk.Stack {
     const content = this.api.root.addResource('content');
     content.addResource('review-queue').addMethod('GET', new apigateway.LambdaIntegration(contentFn), authMethodOpts);
     const contentByCurr = content.addResource('{curriculumId}');
+    contentByCurr.addResource('approve-all').addMethod('POST', new apigateway.LambdaIntegration(contentFn), authMethodOpts);
     const contentByLesson = contentByCurr.addResource('{lessonId}');
     contentByLesson.addMethod('GET', new apigateway.LambdaIntegration(contentFn), authMethodOpts);
     contentByLesson.addResource('review').addMethod('POST', new apigateway.LambdaIntegration(contentFn), authMethodOpts);
