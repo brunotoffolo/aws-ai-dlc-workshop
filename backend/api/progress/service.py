@@ -77,7 +77,18 @@ def get_dashboard(user_id: str) -> dict:
         else:
             active.append(entry)
 
-    assignments = db_client.query(Keys.user_pk(user_id), "ASSIGNMENT#")
-    assigned = [{k: v for k, v in a.items() if not k.startswith(("PK", "SK", "GSI"))} for a in assignments["items"]]
+    assignments = db_client.query(Keys.user_pk(user_id), "ASSIGN#")
+    assigned = []
+    for a in assignments["items"]:
+        cid = a.get("curriculum_id", "")
+        curr = db_client.query(Keys.curriculum_gsi1pk(cid), "META", index_name="GSI1")
+        entry = {"curriculum_id": cid, "deadline": a.get("deadline"), "assigned": True}
+        if curr["items"]:
+            c = curr["items"][0]
+            entry["topic"] = c.get("topic", "")
+            entry["title"] = c.get("topic", "")
+            entry["status"] = c.get("status", "")
+            entry["program_level"] = c.get("program_level", "")
+        assigned.append(entry)
 
     return success_response({"active": active, "completed": completed, "assigned": assigned})

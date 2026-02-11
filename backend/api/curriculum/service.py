@@ -56,8 +56,21 @@ def get_curriculum(curriculum_id: str) -> dict:
 
 
 def list_curricula(user_id: str) -> dict:
+    # Own curricula
     result = db_client.query(Keys.user_pk(user_id), "CURRICULUM#")
     items = [{k: v for k, v in i.items() if not k.startswith(("PK", "SK", "GSI"))} for i in result["items"]]
+    # Assigned curricula
+    assigned = db_client.query(Keys.user_pk(user_id), "ASSIGN#")
+    for a in assigned["items"]:
+        cid = a.get("curriculum_id", "")
+        if cid and not any(i.get("curriculum_id") == cid for i in items):
+            # Fetch curriculum metadata
+            curr = db_client.query(Keys.curriculum_gsi1pk(cid), "META", index_name="GSI1")
+            if curr["items"]:
+                entry = {k: v for k, v in curr["items"][0].items() if not k.startswith(("PK", "SK", "GSI"))}
+                entry["assigned"] = True
+                entry["deadline"] = a.get("deadline")
+                items.append(entry)
     return success_response(items)
 
 
@@ -83,7 +96,14 @@ def poll_status(curriculum_id: str) -> dict:
 
 
 def assign_curriculum(admin_id: str, curriculum_id: str, learner_ids: list[str], deadline: str | None = None) -> dict:
-    for learner_id in learner_ids:
+    for raw_id in learner_ids:
+        # Resolve email to user_id if needed
+        learner_id = raw_id
+        if "@" in raw_id:
+            result = db_client.query(Keys.email_gsi1pk(raw_id), "USER", index_name="GSI1")
+            if not result["items"]:
+                return error_response(NOT_FOUND, f"Learner {raw_id} not found")
+            learner_id = result["items"][0].get("user_id", raw_id)
         existing = db_client.query(Keys.user_pk(learner_id), f"ASSIGNMENT#")
         dupes = [a for a in existing["items"] if a.get("curriculum_id") == curriculum_id]
         if dupes:

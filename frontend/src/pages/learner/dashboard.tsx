@@ -11,8 +11,9 @@ export default function DashboardPage() {
 
   if (isLoading) return <div className="p-6">Loading dashboard...</div>;
 
-  const active = (dashboard?.active_curricula ?? []) as Array<Record<string, unknown>>;
-  const completed = (dashboard?.completed_curricula ?? []) as Array<Record<string, unknown>>;
+  const active = (dashboard?.active_curricula ?? dashboard?.active ?? []) as Array<Record<string, unknown>>;
+  const completed = (dashboard?.completed_curricula ?? dashboard?.completed ?? []) as Array<Record<string, unknown>>;
+  const assigned = (dashboard?.assigned ?? []) as Array<Record<string, unknown>>;
 
   return (
     <div className="space-y-6 p-6" data-testid="learner-dashboard">
@@ -43,6 +44,15 @@ export default function DashboardPage() {
           <h2 className="mb-3 text-lg font-semibold">Completed</h2>
           <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
             {completed.map((c) => <CurriculumCard key={c.curriculum_id as string} curriculum={c} />)}
+          </div>
+        </section>
+      )}
+
+      {assigned.length > 0 && (
+        <section>
+          <h2 className="mb-3 text-lg font-semibold">Assigned to You</h2>
+          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+            {assigned.map((c) => <CurriculumCard key={c.curriculum_id as string} curriculum={c} />)}
           </div>
         </section>
       )}

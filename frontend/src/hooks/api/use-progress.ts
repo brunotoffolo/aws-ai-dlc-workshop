@@ -36,6 +36,6 @@ export function useResume(curriculumId: string) {
 export function useDashboard() {
   return useQuery({
     queryKey: ["dashboard"],
-    queryFn: () => api.get("/dashboard").then((r) => r.data),
+    queryFn: () => api.get("/progress/dashboard").then((r) => r.data),
   });
 }

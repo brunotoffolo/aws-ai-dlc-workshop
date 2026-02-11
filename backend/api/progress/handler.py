@@ -43,7 +43,7 @@ def complete_lesson(curriculum_id: str, lesson_id: str):
     return _proxy(service.complete_lesson(user["user_id"], curriculum_id, lesson_id))
 
 
-@app.get("/dashboard")
+@app.get("/progress/dashboard")
 def dashboard():
     user = get_current_user(app.current_event.raw_event)
     return _proxy(service.get_dashboard(user["user_id"]))
