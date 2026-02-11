@@ -101,9 +101,28 @@ class _DbClient:
     """Object-style db access for API service compatibility."""
     put_item = staticmethod(put_item)
     get_item = staticmethod(get_item)
-    query = staticmethod(query)
     update_item = staticmethod(update_item)
     delete_item = staticmethod(delete_item)
+
+    @staticmethod
+    def query(pk: str, sk_prefix: Optional[str] = None, index: Optional[str] = None, index_name: Optional[str] = None, limit: int = 50, last_key: Optional[dict] = None) -> dict[str, Any]:
+        """Query returning {"items": [...], "last_key": ...} format expected by API services."""
+        table = _get_table()
+        idx = index or index_name
+        kwargs: dict[str, Any] = {"Limit": limit}
+        if idx:
+            kwargs["IndexName"] = idx
+        if last_key:
+            kwargs["ExclusiveStartKey"] = last_key
+
+        condition = Key("GSI1PK" if idx == "GSI1" else "PK").eq(pk)
+        if sk_prefix:
+            sk_key = "GSI1SK" if idx == "GSI1" else "SK"
+            condition = condition & Key(sk_key).begins_with(sk_prefix)
+
+        kwargs["KeyConditionExpression"] = condition
+        resp = table.query(**kwargs)
+        return {"items": resp.get("Items", []), "last_key": resp.get("LastEvaluatedKey")}
 
 
 db_client = _DbClient()

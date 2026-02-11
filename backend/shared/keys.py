@@ -17,8 +17,8 @@ def curriculum_pk(curriculum_id: str) -> str:
     return f"CURR#{curriculum_id}"
 
 
-def curriculum_sk() -> str:
-    return "META"
+def curriculum_sk(curriculum_id: str = "") -> str:
+    return f"CURRICULUM#{curriculum_id}" if curriculum_id else "META"
 
 
 def curriculum_gsi1pk(user_id: str) -> str:

@@ -94,6 +94,7 @@ def login(email: str, password: str) -> dict:
     tokens = auth_resp["AuthenticationResult"]
     return success_response({
         "access_token": tokens["AccessToken"],
+        "id_token": tokens.get("IdToken", ""),
         "refresh_token": tokens.get("RefreshToken", ""),
         "user": {"user_id": user["user_id"], "role": user["role"], "email": email},
     })

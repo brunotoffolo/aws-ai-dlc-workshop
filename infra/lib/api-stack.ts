@@ -26,14 +26,6 @@ export class ApiStack extends cdk.Stack {
 
     const env = this.node.tryGetContext('env') || 'dev';
 
-    // Shared Lambda Layer (auto-built from backend/shared/)
-    const sharedLayer = new lambda.LayerVersion(this, 'SharedLayer', {
-      code: lambda.Code.fromAsset('../backend/shared'),
-      compatibleRuntimes: [lambda.Runtime.PYTHON_3_12],
-      compatibleArchitectures: [lambda.Architecture.ARM_64],
-      description: 'Shared library: models, db, s3, auth utilities',
-    });
-
     this.api = new apigateway.RestApi(this, 'TutorialApi', {
       restApiName: `${env}-TutorialPlatformApi`,
       defaultCorsPreflightOptions: {
@@ -51,15 +43,15 @@ export class ApiStack extends cdk.Stack {
       authorizationType: apigateway.AuthorizationType.COGNITO,
     };
 
+    // Shared library is bundled into each Lambda package via build-lambdas.sh
     const createFn = (name: string, extraEnv: Record<string, string> = {}, timeout = 30, memorySize = 256): lambda.Function => {
       const fn = new lambda.Function(this, `${name}Function`, {
         runtime: lambda.Runtime.PYTHON_3_12,
         architecture: lambda.Architecture.ARM_64,
-        handler: 'handler.lambda_handler',
-        code: lambda.Code.fromAsset(`../backend/api/${name.toLowerCase()}`),
+        handler: `${name.toLowerCase()}/handler.lambda_handler`,
+        code: lambda.Code.fromAsset(`../.build/lambdas/${name.toLowerCase()}`),
         timeout: cdk.Duration.seconds(timeout),
         memorySize,
-        layers: [sharedLayer],
         environment: {
           TABLE_NAME: props.table.tableName,
           CONTENT_BUCKET_NAME: props.contentBucket.bucketName,

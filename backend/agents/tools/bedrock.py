@@ -8,8 +8,8 @@ from botocore.exceptions import ClientError
 
 logger = logging.getLogger(__name__)
 
-PRIMARY_MODEL = "us.anthropic.claude-sonnet-4-5-20250514-v1:0"
-FALLBACK_MODEL = "us.anthropic.claude-3-haiku-20240307-v1:0"
+PRIMARY_MODEL = "us.anthropic.claude-sonnet-4-5-20250929-v1:0"
+FALLBACK_MODEL = "us.anthropic.claude-3-5-haiku-20241022-v1:0"
 
 _client = None
 

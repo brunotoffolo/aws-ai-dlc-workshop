@@ -21,6 +21,9 @@ export class AuthStack extends cdk.Stack {
       },
       accountRecovery: cognito.AccountRecovery.EMAIL_ONLY,
       removalPolicy: cdk.RemovalPolicy.DESTROY,
+      customAttributes: {
+        role: new cognito.StringAttribute({ mutable: true }),
+      },
     });
 
     this.userPoolClient = new cognito.UserPoolClient(this, 'UserPoolClient', {

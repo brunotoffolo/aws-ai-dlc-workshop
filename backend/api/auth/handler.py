@@ -1,11 +1,21 @@
 from aws_lambda_powertools import Logger
-from aws_lambda_powertools.event_handler import APIGatewayRestResolver
+from aws_lambda_powertools.event_handler import APIGatewayRestResolver, Response, content_types
+from pydantic import ValidationError
 
 from auth import schemas, service
 from shared.auth import get_current_user
 
 logger = Logger(service="auth-service")
 app = APIGatewayRestResolver()
+
+
+@app.exception_handler(ValidationError)
+def handle_validation_error(e: ValidationError):
+    return Response(
+        status_code=400,
+        content_type=content_types.APPLICATION_JSON,
+        body='{"error": "VALIDATION_ERROR", "message": "' + str(e.errors()[0]["msg"]) + '"}',
+    )
 
 
 @app.post("/auth/register")

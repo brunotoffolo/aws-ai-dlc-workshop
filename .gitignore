@@ -1,3 +1,4 @@
+.build/
 .vscode/
 aidlc-workflows/
 backend/**/__pycache__
