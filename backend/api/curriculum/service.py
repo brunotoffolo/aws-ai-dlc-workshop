@@ -141,3 +141,38 @@ def get_wizard_categories() -> dict:
     with open(CATEGORIES_PATH) as f:
         categories = json.load(f)
     return success_response(categories)
+
+
+def unassign_curriculum(admin_id: str, curriculum_id: str, learner_id: str) -> dict:
+    # Resolve email to user_id if needed
+    uid = learner_id
+    if "@" in learner_id:
+        result = db_client.query(Keys.email_gsi1pk(learner_id), "USER", index_name="GSI1")
+        if result["items"]:
+            uid = result["items"][0].get("user_id", learner_id)
+
+    # Find and delete the assignment
+    assignments = db_client.query(Keys.user_pk(uid), "ASSIGN#")
+    for a in assignments["items"]:
+        if a.get("curriculum_id") == curriculum_id:
+            db_client.delete_item(a["PK"], a["SK"])
+            return success_response({"message": "Curriculum unassigned"})
+    return error_response(NOT_FOUND, "Assignment not found")
+
+
+def delete_curriculum(admin_id: str, curriculum_id: str) -> dict:
+    # Find curriculum by GSI
+    result = db_client.query(Keys.curriculum_gsi1pk(curriculum_id), "META", index_name="GSI1")
+    if not result["items"]:
+        return error_response(NOT_FOUND, "Curriculum not found")
+    item = result["items"][0]
+
+    # Delete curriculum record
+    db_client.delete_item(item["PK"], item["SK"])
+
+    # Delete all lessons and quizzes for this curriculum
+    lessons = db_client.query(f"CURR#{curriculum_id}")
+    for l in lessons["items"]:
+        db_client.delete_item(l["PK"], l["SK"])
+
+    return success_response({"message": "Curriculum deleted"})

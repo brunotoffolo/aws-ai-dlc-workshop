@@ -52,3 +52,18 @@ export function useAssignCurriculum() {
     mutationFn: (data: AssignPayload) => api.post("/curricula/assign", data).then((r) => r.data),
   });
 }
+
+export function useUnassignCurriculum() {
+  return useMutation({
+    mutationFn: ({ curriculumId, learnerId }: { curriculumId: string; learnerId: string }) =>
+      api.post(`/curricula/${curriculumId}/unassign`, { learner_id: learnerId }).then((r) => r.data),
+    onSuccess: () => queryClient.invalidateQueries({ queryKey: ["admin"] }),
+  });
+}
+
+export function useDeleteCurriculum() {
+  return useMutation({
+    mutationFn: (curriculumId: string) => api.delete(`/curricula/${curriculumId}`).then((r) => r.data),
+    onSuccess: () => queryClient.invalidateQueries({ queryKey: ["admin"] }),
+  });
+}

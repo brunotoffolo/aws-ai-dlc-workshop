@@ -118,6 +118,8 @@ export class ApiStack extends cdk.Stack {
     curriculumById.addMethod('GET', new apigateway.LambdaIntegration(curriculumFn), authMethodOpts);
     curriculumById.addResource('status').addMethod('GET', new apigateway.LambdaIntegration(curriculumFn), authMethodOpts);
     curriculumById.addResource('archive').addMethod('POST', new apigateway.LambdaIntegration(curriculumFn), authMethodOpts);
+    curriculumById.addResource('unassign').addMethod('POST', new apigateway.LambdaIntegration(curriculumFn), authMethodOpts);
+    curriculumById.addMethod('DELETE', new apigateway.LambdaIntegration(curriculumFn), authMethodOpts);
 
     const content = this.api.root.addResource('content');
     content.addResource('review-queue').addMethod('GET', new apigateway.LambdaIntegration(contentFn), authMethodOpts);

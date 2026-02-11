@@ -62,3 +62,17 @@ def archive(curriculum_id: str):
 @logger.inject_lambda_context(correlation_id_path="requestContext.requestId")
 def lambda_handler(event, context):
     return app.resolve(event, context)
+
+
+@app.post("/curricula/<curriculum_id>/unassign")
+def unassign(curriculum_id: str):
+    user = get_current_user(app.current_event.raw_event)
+    body = app.current_event.json_body or {}
+    learner_id = body.get("learner_id", "")
+    return _proxy(service.unassign_curriculum(user["user_id"], curriculum_id, learner_id))
+
+
+@app.delete("/curricula/<curriculum_id>")
+def delete_curriculum(curriculum_id: str):
+    user = get_current_user(app.current_event.raw_event)
+    return _proxy(service.delete_curriculum(user["user_id"], curriculum_id))
